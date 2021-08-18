@@ -170,7 +170,7 @@ public class MainController implements Initializable {
         int id = user.getId();
 //        System.out.println("id == "+this.user.getId()+" user name == "+ user.getName() + " password == "+ this.user.getPassword());
         walletdbc = new WalletDBConnector(id);
-//        System.out.println("wallet in controller :::::: "+wallet);
+
         transdbc = new TransactionHistoryDBCollector(id); 
         p2porderdbc = new P2POrderDBConnetor(id);
         notsdbc = new NotificationDBConnector(id);
