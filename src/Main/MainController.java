@@ -178,7 +178,7 @@ public class MainController implements Initializable {
         
         currencies = new CurrencyDBConnector().getAllCurrency();
         currentPriceOfAllCoins = caller.getCurrentPriceOfAllCoins(currencies);
-//        System.out.println("currentPriceOfAllCoins list == "+ currentPriceOfAllCoins);
+
         for (int i = 1 ; i < currencies.getAllCurrencies().size(); i ++){
             Currency cur = currencies.getCurrency(i);
             
