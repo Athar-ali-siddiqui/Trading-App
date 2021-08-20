@@ -76,7 +76,7 @@ public class P2POrderDBConnetor extends DBConnector{
         P2POrderList orders = new P2POrderList();
         String queryStr="select p.currencyId as currencyId, p.amount as amount,"+
                 "p.price as price,c.currencySymbol as currencySymbol,p.Date as date from p2p_order as p "+""
-                + "inner join currency as c on p.currencyId = c.currencyId where p.userId = "+this.userId +" order by p.transId asc";
+                + "inner join currency as c on p.currencyId = c.currencyId where p.userId = "+this.userId +" order by p.Date asc";
         
         try {
             st = con.createStatement();
