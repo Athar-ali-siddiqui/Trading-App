@@ -67,14 +67,21 @@ public class WalletDBConnector extends DBConnector{
                         rs.next();
 //                        System.out.println("rs.getDouble(1) : "+ rs.getDouble(1));
 //                        System.out.println("rs.getDouble(\"quantity\") : "+ rs.getDouble("quantity"));
-                        String queryStr = "update Wallet set quantity = ? where userId = ? and currencyId = ?";
-                        ps = con.prepareStatement(queryStr);
-//                        System.out.println("amount + rs.getDouble(\"quantity\") == " + (amount + rs.getDouble("quantity")));
-                        String qtn = String.format("%.3f",( amount + rs.getDouble("quantity") ) );
-                        ps.setDouble(1,Double.parseDouble(qtn));
-                        ps.setInt(2, this.userId);
-                        ps.setInt(3, curId);
-                        ps.executeUpdate();
+                        if(amount + rs.getDouble("quantity") == 0){
+                            String queryStr = "delete from wallet where userId = "+this.userId +" and currencyId = "+curId;
+                            st.executeUpdate(queryStr);
+                        }
+                        else{
+                            String queryStr = "update Wallet set quantity = ? where userId = ? and currencyId = ?";
+                            ps = con.prepareStatement(queryStr);
+    //                        System.out.println("amount + rs.getDouble(\"quantity\") == " + (amount + rs.getDouble("quantity")));
+                            String qtn = String.format("%.3f",( amount + rs.getDouble("quantity") ) );
+                            ps.setDouble(1,Double.parseDouble(qtn));
+                            ps.setInt(2, this.userId);
+                            ps.setInt(3, curId);
+                            ps.executeUpdate();
+
+                        }
         //        fetchWallet().getWallet().get(1).setQuantity(amount)  ;
                     } catch (SQLException ex) {
                         Logger.getLogger(WalletDBConnector.class.getName()).log(Level.SEVERE, null, ex);
