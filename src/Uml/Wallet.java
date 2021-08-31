@@ -30,8 +30,12 @@ public class Wallet {
     public ArrayList<Asset> getWallet() {
         return wallet;
     }
-    public Asset getAsset(int i ){
-        return wallet.get(i);
+    public Asset getAsset(int id ){
+        for (Asset asset : wallet) {
+            if(asset.getCurrencyId() == id) return asset;
+        }
+        return null;
+        
     }
     public boolean haveAsset(String assetName){
 //        System.out.println("havASSSET == " + assetName.toLowerCase());
@@ -42,6 +46,11 @@ public class Wallet {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Wallet{" + "userId=" + userId + ", wallet=" + wallet + '}';
     }
 
     
