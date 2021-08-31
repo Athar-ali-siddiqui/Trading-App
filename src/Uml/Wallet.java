@@ -11,27 +11,16 @@ import java.util.*;
  *
  * @author 786 Computers
  */
-public class Wallet {
+public class Wallet extends ArrayList<Asset>{
     private int userId;
-    private ArrayList<Asset> wallet;
 
     public Wallet(int id) {
-        wallet = new ArrayList<>();
         this.userId = id;
     }
     public int getUserId(){return userId;}
-    public void addAsset(Asset a){
-        wallet.add(a);
-    }
-    public void removeAsset(Asset a){
-        wallet.remove(a);
-    }
 
-    public ArrayList<Asset> getWallet() {
-        return wallet;
-    }
     public Asset getAsset(int id ){
-        for (Asset asset : wallet) {
+        for (Asset asset : this) {
             if(asset.getCurrencyId() == id) return asset;
         }
         return null;
@@ -39,7 +28,7 @@ public class Wallet {
     }
     public boolean haveAsset(String assetName){
 //        System.out.println("havASSSET == " + assetName.toLowerCase());
-        for (Asset asset : wallet) {
+        for (Asset asset : this) {
 //            System.out.println("assetss ==" + asset.getCurrencyName());
             if(asset.getCurrencyName().equals( assetName.toUpperCase() )){
                 return true;
@@ -47,13 +36,5 @@ public class Wallet {
         }
         return false;
     }
-
-    @Override
-    public String toString() {
-        return "Wallet{" + "userId=" + userId + ", wallet=" + wallet + '}';
-    }
-
-    
-    
-    
+  
 }

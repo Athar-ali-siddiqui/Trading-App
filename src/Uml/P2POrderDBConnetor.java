@@ -82,7 +82,7 @@ public class P2POrderDBConnetor extends DBConnector{
             st = con.createStatement();
             rs = st.executeQuery(queryStr);
             while(rs.next()){
-                orders.addOrder(new P2POrder(this.userId, rs.getInt("currencyId"), rs.getDouble("amount"), rs.getDouble("price"), rs.getString("currencySymbol"), rs.getString("date") ));
+                orders.add(new P2POrder(this.userId, rs.getInt("currencyId"), rs.getDouble("amount"), rs.getDouble("price"), rs.getString("currencySymbol"), rs.getString("date") ));
             }
         } catch (SQLException ex) {
             Logger.getLogger(P2POrderDBConnetor.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,7 +103,7 @@ public class P2POrderDBConnetor extends DBConnector{
             while(rs.next()){
                 P2POrder o = new P2POrder(rs.getInt("userid"), rs.getInt("currencyId"), rs.getDouble("amount"), rs.getDouble("price"), rs.getString("currencySymbol"), rs.getString("date"),rs.getString("userName") );
                 System.out.println("order == "+o);
-                orders.addOrder(o);
+                orders.add(o);
             }
         } catch (SQLException ex) {
             Logger.getLogger(P2POrderDBConnetor.class.getName()).log(Level.SEVERE, null, ex);

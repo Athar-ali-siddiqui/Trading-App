@@ -130,7 +130,7 @@ public class TransactionHistoryDBCollector extends DBConnector {
             rs = st.executeQuery(queryStr);
             while(rs.next()){
                 if(rs.getInt("sellerId") == this.userId){
-                    transHist.addTransaction(new Transaction(rs.getInt("givenCurrencyId"), rs.getDouble("givenCurrencyAmount"),rs.getString("takenCurrencySymbol"), rs.getInt("takenCurrencyId"), rs.getDouble("takenCurrencyAmount"),rs.getString("givenCurrencySymbol"),rs.getString("date") ,rs.getString("buyerName") ) );
+                    transHist.addTransaction(new Transaction(rs.getInt("givenCurrencyId"), rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"), rs.getInt("takenCurrencyId"), rs.getDouble("takenCurrencyAmount"),rs.getString("takenCurrencySymbol"),rs.getString("date") ,rs.getString("buyerName") ) );
                 }
                 else if (rs.getInt("buyerId") == this.userId ){
                      transHist.addTransaction(new Transaction( rs.getInt("takenCurrencyId"), rs.getDouble("takenCurrencyAmount"),rs.getString("takenCurrencySymbol") ,rs.getInt("givenCurrencyId"), rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"),rs.getString("date"),rs.getString("sellerName") ) );

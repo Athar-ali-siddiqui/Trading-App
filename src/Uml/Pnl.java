@@ -17,7 +17,17 @@ public class Pnl {
     private int transId;
 
     public Pnl(Date date, double pnl, int transId) {
-        this.date = date.getDate()+ "-" +(date.getMonth()+1) + "-"+ (date.getYear()+1900);
+        if(date.getDate() < 10 ){
+             this.date = "0"+date.getDate() +"-";
+        }
+        else{
+            this.date = date.getDate() +"-";
+        }
+        if (date.getMonth()+1 < 10 ){
+            this.date += "0" +(date.getMonth()+1) + "-"+ (date.getYear()+1900);
+        }else {
+            this.date += (date.getMonth()+1) + "-"+ (date.getYear()+1900);
+        }
         this.pnl = pnl;
         this.transId = transId;
     }

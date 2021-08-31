@@ -18,14 +18,14 @@ public class CurrencyDBConnector extends DBConnector{
         CurrencyList list = new CurrencyList();
         try {
             
-            String queryStr = " select * from currency";
+            String queryStr= " select * from currency";
             st = con.createStatement();
             rs = st.executeQuery(queryStr);
             while(rs.next()){
 //                System.out.println(rs.getInt("currencyId")+" ,"+ rs.getString("currencyName")+" ,"+ rs.getString("currencySymbol"));
                 Currency currency = new Currency(rs.getInt("currencyId"), rs.getString("currencyName"), rs.getString("currencySymbol"));
 //                System.out.println("currency :-: "+currency);
-                list.addCurrency(currency);
+                list.add(currency);
             }
             
         } catch (SQLException ex) {

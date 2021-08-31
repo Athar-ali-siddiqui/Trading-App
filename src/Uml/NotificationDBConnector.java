@@ -45,11 +45,10 @@ public class NotificationDBConnector extends DBConnector{
             "where p.sellerId ="+this.userId+" order by p.transId asc ";
         System.out.println("querySTr of nots == "+queryStr);
         try {
-//String username, double takenCurrencyAmount, String takenCurrencySymbol, double givenCurrencyAmount, String givenCurrencySymbol + ")";
             st = con.createStatement();
             rs = st.executeQuery(queryStr);
             while(rs.next()){
-                list.addNotification(new Notification(rs.getInt("notsId"), rs.getString("buyerName"),rs.getDouble("takenCurrencyAmount"),"USD",rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"),rs.getDouble("pnl"),rs.getString("date") ));
+                list.add(new Notification(rs.getInt("notsId"), rs.getString("buyerName"),rs.getDouble("takenCurrencyAmount"),"USD",rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"),rs.getDouble("pnl"),rs.getString("date") ));
             }
         } catch (SQLException ex) {
             Logger.getLogger(NotificationDBConnector.class.getName()).log(Level.SEVERE, null, ex);

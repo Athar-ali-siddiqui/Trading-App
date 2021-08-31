@@ -11,15 +11,6 @@ import java.util.ArrayList;
  *
  * @author 786 Computers
  */
-public class P2POrderList {
-    private ArrayList<P2POrder> list ;
-    P2POrderList(){
-        list = new ArrayList();
-    }
-    public void addOrder(P2POrder o){
-        list.add(o);
-    }
-    public ArrayList<P2POrder> getOrderList(){
-        return list;
-    }
+public class P2POrderList extends ArrayList<P2POrder>{
+
 }

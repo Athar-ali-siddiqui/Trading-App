@@ -436,7 +436,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="P2PBamountTextField" alignment="CENTER_RIGHT" onKeyReleased="#P2PBuyOrderAmountChange" prefHeight="31.0" prefWidth="171.0" promptText="000.0">
+                                                <TextField fx:id="P2PBamountTextField" alignment="CENTER_RIGHT" onKeyReleased="#P2PBuyOrderAmountChange" prefHeight="31.0" prefWidth="171.0" promptText="Enter Value">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>

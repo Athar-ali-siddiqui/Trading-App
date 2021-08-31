@@ -180,14 +180,14 @@ public class MainController implements Initializable {
         currencies = new CurrencyDBConnector().getAllCurrency();
         currentPriceOfAllCoins = caller.getCurrentPriceOfAllCoins(currencies);
 
-        for (int i = 1 ; i < currencies.getAllCurrencies().size(); i ++){
-            Currency cur = currencies.getCurrency(i);
+        for (int i = 1 ; i < currencies.size(); i ++){
+            Currency cur = currencies.get(i);
             
             cur.setCurrentPriceInUSD(currentPriceOfAllCoins.get(i-1));
             
         }
         System.out.println("Currency in data init = "+ currencies);
-        selectedCoin = currencies.getCurrency(apiCoinComboBox.getValue().toString());
+        selectedCoin = currencies.get(apiCoinComboBox.getValue().toString());
         oneHour(selectedCoin.getName());
         
         dataRefresh();
@@ -211,9 +211,9 @@ public class MainController implements Initializable {
     private void showNotification(){
         notsList=notsdbc.fetchAllNotification();
         ObservableList<String> items = FXCollections.observableArrayList ();
-        if(!notsList.getList().isEmpty()){
+        if(!notsList.isEmpty()){
             newNotificationLabel.setVisible(true);
-            for(Notification n : notsList.getList()){
+            for(Notification n : notsList){
                 items.add(n.getNotsId()+"- User "+n.getUsername() +" bought your order (click to see details)");
             }
             notificationListView.setItems(items);
@@ -291,9 +291,8 @@ public class MainController implements Initializable {
         UTtableCurrencyQtn.setCellValueFactory(new PropertyValueFactory<Asset, Double>("quantity"));
         
         ObservableList<Asset> assets =FXCollections.observableArrayList();
-        ArrayList<Asset> arr = wallet.getWallet();
 
-        for (Asset asset : arr) {
+        for (Asset asset : wallet) {
             assets.add(asset);
         }
         UTtableWallet.setItems(assets);
@@ -304,8 +303,8 @@ public class MainController implements Initializable {
          ObservableList<PieChart.Data> data =FXCollections.observableArrayList();
          
          double amountInUSD = 0.0;
-         for(Asset asset: wallet.getWallet()){
-             Currency cur = currencies.getCurrency(asset.getCurrencyName());
+         for(Asset asset: wallet){
+             Currency cur = currencies.get(asset.getCurrencyName());
              System.out.println("asset.getCurrencyName() == " + asset.getCurrencyName()+ " asset.getQuantity() == "+ asset.getQuantity() + "  cur.getCurrentPriceInUSD() == "+cur.getCurrentPriceInUSD());
              data.add(new PieChart.Data(asset.getCurrencyName(),asset.getQuantity()*cur.getCurrentPriceInUSD() ));
              amountInUSD += (asset.getQuantity()*cur.getCurrentPriceInUSD());
@@ -410,7 +409,8 @@ public class MainController implements Initializable {
         
         XYChart.Series series = new XYChart.Series();
         pnlChart.getData().clear();
-        for (Pnl pnl : pnlList) {
+        for (int i = pnlList.size()-1 ; i >= 0;i--) {
+            Pnl pnl = pnlList.get(i);
             String[] s = pnl.getDate().split("-", 3);
             series.getData().add(new XYChart.Data( s[0]+"-"+s[1] ,pnl.getPnl() ) );
         }
@@ -424,9 +424,10 @@ public class MainController implements Initializable {
         PNLtableViewPnl.setCellValueFactory(new PropertyValueFactory<Pnl, Double>("pnl"));
         
         ObservableList<Pnl> pnlValues =FXCollections.observableArrayList();
-        pnlList.forEach((pnlValue) -> {
+        for (int i = pnlList.size()-1 ; i >= 0;i--) {
+            Pnl pnlValue = pnlList.get(i);
             pnlValues.add(pnlValue);
-        });
+        }
         PNLtableView.setItems(pnlValues);
 //
     }
@@ -453,7 +454,7 @@ public class MainController implements Initializable {
     @FXML
     private void apiComboBoxUpdated(ActionEvent event) {
         String selectedCoinName = apiCoinComboBox.getValue().toString();
-        selectedCoin = currencies.getCurrency(selectedCoinName);
+        selectedCoin = currencies.get(selectedCoinName);
         showDataOfSelectedCoin();
         if(spotTradTab.isVisible()){
             
@@ -747,7 +748,7 @@ double tickUnit = getTickUnits();
         STTbuySlider.setVisible(true);STTamountLabel.setText("0");STTtotalLabel.setText("0");STTbuySlider.setValue(0);STTbuySlider.setMin(0);
         
         if(wallet.haveAsset("dollar")) {
-            STTbuySlider.setMax(wallet.getAsset(currencies.getCurrency(0).getId()).getQuantity());
+            STTbuySlider.setMax(wallet.getAsset(currencies.get(0).getId()).getQuantity());
         }
         else {
             STTbuySlider.setMax(0);
@@ -836,7 +837,7 @@ double tickUnit = getTickUnits();
         P2PBuyOrderTableViewAmount.setCellValueFactory( new PropertyValueFactory<>("amount") );
         
         ObservableList<P2POrder> orders =FXCollections.observableArrayList();
-        ArrayList<P2POrder> arr = p2pBuyOrder.getOrderList();
+        ArrayList<P2POrder> arr = p2pBuyOrder;
         for (P2POrder p2POrder : arr) {
             orders.add(p2POrder);
         }
@@ -850,7 +851,7 @@ double tickUnit = getTickUnits();
         P2PSellOrderTableViewAmount.setCellValueFactory( new PropertyValueFactory<>("amount") );
         
         ObservableList<P2POrder> orders =FXCollections.observableArrayList();
-        ArrayList<P2POrder> arr = p2pSellOrder.getOrderList();
+        ArrayList<P2POrder> arr = p2pSellOrder;
         for (P2POrder p2POrder : arr) {
             orders.add(p2POrder);
         }
@@ -964,8 +965,6 @@ double tickUnit = getTickUnits();
             P2PBuyOrder.setVisible(true);
             P2PtableTab.setEffect(adj);
 
-
-//            P2PBtotalBillAmount.set("0.000");
             P2POrder order = P2PBuyOrderTableView.getSelectionModel().getSelectedItem();
             System.out.println("order == "+ order);
             P2PBusername.setText(order.getUserName());
@@ -985,12 +984,12 @@ double tickUnit = getTickUnits();
                     P2PBtotalBillAmount.setText( String.format( "%.3f", P2PBamountSlider.getValue()*order.getPrice() ) );
 
                     Double totalBill =  Double.parseDouble(P2PBtotalBillAmount.getText());
-                    if(wallet.getAsset(0).getQuantity() < totalBill){
-                    P2PBtotalBillAmount.setStyle("-fx-text-fill: #ff0d29 ");
+                    if(wallet.getAsset(1).getQuantity() < totalBill){
+                        P2PBtotalBillAmount.setStyle("-fx-text-fill: #ff0d29 ");
 
-                    P2PBenterBtnId.setDisable(true);
-                }
-                    else if (wallet.getAsset(0).getQuantity() >= totalBill ){
+                        P2PBenterBtnId.setDisable(true);
+                    }
+                    else if (wallet.getAsset(1).getQuantity() >= totalBill ){
                         P2PBtotalBillAmount.setStyle("-fx-text-fill: white ");
                         P2PBenterBtnId.setDisable(false);
                     }

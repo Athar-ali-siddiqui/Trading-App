@@ -58,7 +58,7 @@ public class ApiCaller{
     }
     public List<Double> getCurrentPriceOfAllCoins(CurrencyList list){
         List<Double> prices = new ArrayList<>();
-        ArrayList<Currency> currency = list.getAllCurrencies();
+        ArrayList<Currency> currency = list;
 //        bitcoin%2Cethereum%2Clitecoin%2Cdogecoin
         String urlStr = "https://api.coingecko.com/api/v3/simple/price?ids=";
         for (Currency cur : currency) {
