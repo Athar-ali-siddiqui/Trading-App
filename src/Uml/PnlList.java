@@ -5,10 +5,12 @@
  */
 package Uml;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 786 Computers
  */
-public class PnlList {
+public class PnlList extends ArrayList<Pnl> {
     
 }

@@ -58,7 +58,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <AnchorPane fx:id="transferTab" layoutX="-2.0" layoutY="80.0" prefHeight="463.0" prefWidth="424.0" style="-fx-background-color: #272527;">
+                  <AnchorPane fx:id="transferTab" layoutX="-2.0" layoutY="80.0" prefHeight="463.0" prefWidth="424.0" style="-fx-background-color: #272527;" visible="false">
                      <children>
                         <Label layoutX="12.0" layoutY="1.0" prefHeight="30.0" prefWidth="129.0" text="PNL Analysis" textFill="WHITE">
                            <font>
@@ -157,7 +157,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <Label alignment="CENTER" layoutX="218.0" layoutY="141.0" prefHeight="27.0" prefWidth="170.0" text="Wallet Ratio in '$'" textFill="#fffefe">
+                        <Label alignment="CENTER" layoutX="162.0" layoutY="141.0" prefHeight="27.0" prefWidth="260.0" text="Equity Value in '$'" textFill="#fffefe">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -172,7 +172,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Text>
-                        <Label fx:id="UTpieChartTotalAmnt" alignment="CENTER" layoutX="161.0" layoutY="163.0" prefHeight="23.0" prefWidth="260.0" text="\$ 12345" textFill="WHITE">
+                        <Label fx:id="UTpieChartTotalAmnt" alignment="CENTER" layoutX="162.0" layoutY="163.0" prefHeight="23.0" prefWidth="260.0" text="\$ 12345" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -326,7 +326,7 @@
                         <PasswordField fx:id="BTTverifyConfirmPassword" layoutX="152.0" layoutY="134.0" prefHeight="25.0" prefWidth="229.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="p2pTradTab" layoutX="-2.0" layoutY="81.0" prefHeight="459.0" prefWidth="427.0" style="-fx-background-color: #272527;" visible="false">
+                  <AnchorPane fx:id="p2pTradTab" layoutX="-2.0" layoutY="81.0" prefHeight="459.0" prefWidth="427.0" style="-fx-background-color: #272527;">
                      <children>
                         <Button layoutX="279.0" layoutY="4.0" mnemonicParsing="false" onAction="#P2PselectTradeHistoryBtn" prefWidth="133.0" style="-fx-background-color: #d0a703;" text="Trade History">
                            <font>
@@ -355,7 +355,7 @@
                                        </columns>
                                     </TableView>
                                     <Label layoutX="2.0" layoutY="13.0" prefHeight="24.0" prefWidth="396.0" style="-fx-background-color: #d0a703;" />
-                                    <Text layoutX="307.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AMOUNT">
+                                    <Text layoutX="307.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITY">
                                        <font>
                                           <Font name="System Bold" size="12.4" />
                                        </font>
@@ -375,7 +375,7 @@
                                           <Font name="System Bold" size="12.4" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="273.0" layoutY="393.0" mnemonicParsing="false" onAction="#P2PBuyOrderOpenOrderBtn" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #8a0f1c;" text="Open Order" textFill="WHITE">
+                                    <Button layoutX="273.0" layoutY="393.0" mnemonicParsing="false" onAction="#P2PBuyOrderOpenOrderBtn" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #8a0f1c;" text="Buy" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
@@ -436,7 +436,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="P2PBamountTextField" alignment="CENTER_RIGHT" onKeyReleased="#P2PBuyOrderAmountChange" prefHeight="31.0" prefWidth="171.0" promptText="00000">
+                                                <TextField fx:id="P2PBamountTextField" alignment="CENTER_RIGHT" onKeyReleased="#P2PBuyOrderAmountChange" prefHeight="31.0" prefWidth="171.0" promptText="000.0">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>
@@ -535,7 +535,7 @@
                                  </font>
                               </Label>
                               <Label layoutX="4.0" layoutY="204.0" prefHeight="19.0" prefWidth="396.0" style="-fx-background-color: #d0a703;" />
-                              <Text layoutX="324.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AMOUNT">
+                              <Text layoutX="319.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITY">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -655,14 +655,14 @@
                               <Label fx:id="P2PScancelSellOrderValidateLabel" layoutX="14.0" layoutY="404.0" prefHeight="17.0" prefWidth="222.0" textFill="WHITE" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="P2PtradeHistoryTab" layoutX="13.0" layoutY="29.0" prefHeight="431.0" prefWidth="399.0" style="-fx-background-color: #272527;">
+                        <AnchorPane fx:id="P2PtradeHistoryTab" layoutX="13.0" layoutY="29.0" prefHeight="431.0" prefWidth="399.0" style="-fx-background-color: #272527;" visible="false">
                            <children>
                               <Label prefHeight="4.0" prefWidth="399.0" style="-fx-background-color: #d0a703;">
                                  <font>
                                     <Font size="0.1" />
                                  </font>
                               </Label>
-                              <TableView fx:id="P2PTradeHistTableView" layoutX="-10.0" layoutY="11.0" prefHeight="418.0" prefWidth="423.0" style="-fx-background-color: #272527;">
+                              <TableView fx:id="P2PTradeHistTableView" layoutX="-10.0" layoutY="33.0" prefHeight="396.0" prefWidth="423.0" style="-fx-background-color: #272527;">
                                 <columns>
                                     <TableColumn fx:id="P2PTradeHistUsername" editable="false" prefWidth="70.0" resizable="false" sortable="false" style="-fx-background-color: #272527; -fx-text-fill: white; -fx-font-size: 13.5px; -fx-alignment: center;" text="USER" />
                                   <TableColumn fx:id="P2PTradeHistDate" editable="false" prefWidth="83.0" resizable="false" sortable="false" style="-fx-background-color: #272527; -fx-text-fill: white; -fx-font-size: 13px; -fx-alignment: center;" text="DATE" />
@@ -671,28 +671,28 @@
                                     <TableColumn fx:id="P2PTradeHistAmount" editable="false" minWidth="0.0" prefWidth="95.0" resizable="false" sortable="false" style="-fx-background-color: #272527; -fx-text-fill: white; -fx-font-size: 13px; -fx-alignment: center;" text="AMOUNT" />
                                 </columns>
                               </TableView>
-                              <Label layoutX="-1.0" layoutY="13.0" prefHeight="24.0" prefWidth="400.0" style="-fx-background-color: #d0a703;" />
-                              <Text layoutX="339.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AMOUNT">
+                              <Label layoutX="-1.0" layoutY="13.0" prefHeight="41.0" prefWidth="400.0" style="-fx-background-color: #d0a703;" />
+                              <Text layoutX="327.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="AMOUNT GAINED" wrappingWidth="61.44140625">
                                  <font>
                                     <Font name="System Bold" size="12.4" />
                                  </font>
                               </Text>
-                              <Text layoutX="167.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PAIR">
+                              <Text layoutX="167.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PAIR">
                                  <font>
                                     <Font name="System Bold" size="12.4" />
                                  </font>
                               </Text>
-                              <Text layoutX="254.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRICE">
+                              <Text layoutX="237.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="QUANTITY SOLD" wrappingWidth="70.1283187866211">
                                  <font>
                                     <Font name="System Bold" size="12.4" />
                                  </font>
                               </Text>
-                              <Text layoutX="87.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE" wrappingWidth="42.4140625">
+                              <Text layoutX="87.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE" wrappingWidth="42.4140625">
                                  <font>
                                     <Font name="System Bold" size="12.4" />
                                  </font>
                               </Text>
-                              <Text layoutX="10.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRADER" wrappingWidth="50.4140625">
+                              <Text layoutX="10.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRADER" wrappingWidth="50.4140625">
                                  <font>
                                     <Font name="System Bold" size="12.4" />
                                  </font>
@@ -805,8 +805,8 @@
                               <TableColumn fx:id="STTtransactionHistPrice" editable="false" maxWidth="116.0" minWidth="6.0" prefWidth="106.0" resizable="false" sortable="false" style="-fx-background-color: #252725; -fx-text-fill: #ff0d29; -fx-font-size: 13px; -fx-alignment: center;" />
                           </columns>
                         </TableView>
-                        <Label layoutX="14.0" layoutY="221.0" prefHeight="19.0" prefWidth="396.0" style="-fx-background-color: #eebd08;" />
-                        <Text layoutX="351.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRICE">
+                        <Label layoutX="2.0" layoutY="219.0" prefHeight="24.0" prefWidth="419.0" style="-fx-background-color: #eebd08;" />
+                        <Text layoutX="323.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITY SOLD">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -816,7 +816,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <Text layoutX="238.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AMOUNT">
+                        <Text layoutX="210.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AMOUNT GAINED">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -891,12 +891,12 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text fx:id="selectedCoinCurrentPriceTag" fill="#ff0d29" layoutX="135.0" layoutY="27.0" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="\$41309.23">
+                  <Text fx:id="selectedCoinCurrentPriceTag" fill="#ff0d29" layoutX="136.0" layoutY="51.0" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="\$41309.23">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Text>
-                  <Text fill="#979797" layoutX="135.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Price">
+                  <Text fill="#979797" layoutX="145.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Price" wrappingWidth="80.03515625">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -941,9 +941,9 @@
                         <Font name="System Bold" size="14.5" />
                      </font>
                   </Label>
-                  <AnchorPane fx:id="notificationTab" layoutX="307.0" prefHeight="190.0" prefWidth="319.0" style="-fx-background-color: white; -fx-border-color: A;" visible="false">
+                  <AnchorPane fx:id="notificationTab" layoutX="272.0" prefHeight="197.0" prefWidth="0.0" style="-fx-background-color: white; -fx-border-color: A;" visible="false">
                      <children>
-                        <ListView fx:id="notificationListView" layoutY="27.0" onMouseClicked="#notificationClicked" prefHeight="170.0" prefWidth="319.0" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-inner-text-fill: white; -fx-font-color: white;" />
+                        <ListView fx:id="notificationListView" layoutY="29.0" onMouseClicked="#notificationClicked" prefHeight="168.0" prefWidth="354.0" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-inner-text-fill: white; -fx-font-color: white;" />
                         <Label prefHeight="29.0" prefWidth="162.0" text="Notification">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -954,24 +954,21 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="notificationDetail" layoutX="307.0" layoutY="197.0" prefHeight="141.0" prefWidth="321.0" style="-fx-background-color: #1a191a;" visible="false">
+                  <AnchorPane fx:id="notificationDetail" layoutX="271.0" layoutY="197.0" prefHeight="146.0" prefWidth="355.0" style="-fx-background-color: #1a191a;" visible="false">
                      <children>
-                        <VBox layoutY="1.0" prefHeight="145.0" prefWidth="319.0" spacing="2.0">
+                        <VBox alignment="TOP_CENTER" layoutY="1.0" prefHeight="145.0" prefWidth="353.0" spacing="2.0">
                            <children>
-                              <HBox prefHeight="0.0" prefWidth="319.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="319.0">
                                  <children>
                                     <Label fx:id="notificationDetailDate" prefHeight="28.0" prefWidth="214.0" text="Date: 8-8-2021 --------" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="11.0" />
                                        </font>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
                                     </Label>
                                     <Hyperlink alignment="CENTER_RIGHT" onAction="#notificationDetailRemove" prefHeight="9.0" prefWidth="104.0" text="Remove    " />
                                  </children>
                               </HBox>
-                              <HBox prefHeight="32.0" prefWidth="319.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="319.0">
                                  <children>
                                     <Label fx:id="notificationDetailUsername" prefHeight="30.0" prefWidth="125.0" text="--------" textFill="#eebd08">
                                        <font>
@@ -1015,17 +1012,17 @@
                                     <Insets left="7.0" top="-5.0" />
                                  </VBox.margin>
                               </HBox>
-                              <HBox prefHeight="25.0" prefWidth="319.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="319.0">
                                  <children>
-                                    <Label prefHeight="36.0" prefWidth="120.0" text="Amount" textFill="#979797">
+                                    <Label prefHeight="25.0" prefWidth="120.0" text="Amount Gained" textFill="#979797">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                        <padding>
-                                          <Insets left="40.0" />
+                                          <Insets left="25.0" />
                                        </padding>
                                     </Label>
-                                    <Label fx:id="notificationDetailGivenCurrencyAmount" alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="140.0" text="-----" textFill="WHITE">
+                                    <Label fx:id="notificationDetailGivenCurrencyAmount" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="141.0" text="-----" textFill="WHITE">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
@@ -1046,22 +1043,22 @@
                                     <Insets top="3.0" />
                                  </VBox.margin>
                               </HBox>
-                              <HBox prefHeight="25.0" prefWidth="319.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="319.0">
                                  <children>
-                                    <Label prefHeight="36.0" prefWidth="120.0" text="Price" textFill="#979797">
+                                    <Label prefHeight="25.0" prefWidth="124.0" text="Quantity Sold" textFill="#979797">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                        <padding>
-                                          <Insets left="40.0" />
+                                          <Insets left="37.0" />
                                        </padding>
                                     </Label>
-                                    <Label fx:id="notificationDetailTakenCurrencyAmount" alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="140.0" text="-----" textFill="WHITE">
+                                    <Label fx:id="notificationDetailTakenCurrencyAmount" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="151.0" text="-----" textFill="WHITE">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                        <padding>
-                                          <Insets left="10.0" />
+                                          <Insets left="9.0" />
                                        </padding>
                                     </Label>
                                     <Label fx:id="notificationDetailTakenCurrencySymbol" prefHeight="56.0" prefWidth="59.0" text="-----" textFill="WHITE">
@@ -1074,9 +1071,9 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="25.0" prefWidth="319.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="319.0">
                                  <children>
-                                    <Label fx:id="notificationDetailNetIncomeLabel" prefHeight="36.0" prefWidth="120.0" text="Net Income" textFill="#979797">
+                                    <Label fx:id="notificationDetailNetIncomeLabel" prefHeight="25.0" prefWidth="110.0" text="Net Income" textFill="#979797">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
@@ -1084,7 +1081,7 @@
                                           <Insets left="40.0" />
                                        </padding>
                                     </Label>
-                                    <Label fx:id="notificationDetailNetIncomeAmount" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="140.0" text="-----" textFill="#0ead3b">
+                                    <Label fx:id="notificationDetailNetIncomeAmount" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="167.0" text="-----" textFill="#0ead3b">
                                        <font>
                                           <Font size="13.0" />
                                        </font>

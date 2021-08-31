@@ -21,8 +21,8 @@ public class PnlDBConnector extends DBConnector{
     public PnlDBConnector(int userId) {
         this.userId = userId;
     }
-    public ArrayList<Pnl> fetchLast7DaysPnl(){
-        ArrayList<Pnl> list = new ArrayList<>();
+    public PnlList fetchLast7DaysPnl(){
+        PnlList list = new PnlList();
 
         String queryStr="select date,SUM(pnl) as pnl from profitnloss pnl inner join p2p_trade p on pnl.transId = p.transId where p.sellerId = "+this.userId+" group by date having date =  ";
         ArrayList<String> dates = new ArrayList<>();

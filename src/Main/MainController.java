@@ -153,6 +153,7 @@ public class MainController implements Initializable {
     private NotificationDBConnector notsdbc;
     private NotificationList notsList;
     private PnlDBConnector pnldbc;
+    private PnlList pnlList;
     @FXML
     private Label notificationDetailsNetIncomeSymbol;
     @FXML
@@ -310,7 +311,7 @@ public class MainController implements Initializable {
              amountInUSD += (asset.getQuantity()*cur.getCurrentPriceInUSD());
              
          }
-        
+         
          UTpieChartTotalAmnt.setText("$"+ String.format("%.3f",amountInUSD ) );
          UTpieChart.setData(data);
      }
@@ -401,32 +402,31 @@ public class MainController implements Initializable {
         userBtnId.setStyle("-fx-background-color:  #272527 ; -fx-border-width:  0px 0px 4px 0px ; -fx-border-color: #d0a703");
         p2pTradBtnId.setStyle("-fx-background-color:   #272527 ; -fx-border-width:  0px 0px 4px 0px ; -fx-border-color: #d0a703");
         spotTradTab.setVisible(false);userTab.setVisible(false);transferTab.setVisible(true);p2pTradTab.setVisible(false);bankTransactionTab.setVisible(false); 
-        
+        pnlList = pnldbc.fetchLast7DaysPnl();
         showPNLChart();
         showPNLTable();
     }
     public void showPNLChart(){
-        ArrayList<Pnl> list = pnldbc.fetchLast7DaysPnl();
+        
         XYChart.Series series = new XYChart.Series();
         pnlChart.getData().clear();
-        for (Pnl pnl : list) {
+        for (Pnl pnl : pnlList) {
             String[] s = pnl.getDate().split("-", 3);
-//            s.split("-", 3)[0] +"-" + s.split("-", 3)[1]
             series.getData().add(new XYChart.Data( s[0]+"-"+s[1] ,pnl.getPnl() ) );
         }
 
          pnlChart.getData().add(series);
     }
     public void showPNLTable(){
-        ArrayList<Pnl> list = pnldbc.fetchLast7DaysPnl();
+       
 //        PNLtableView
         PNLtableViewDate.setCellValueFactory(new PropertyValueFactory<Pnl, String>("date"));
         PNLtableViewPnl.setCellValueFactory(new PropertyValueFactory<Pnl, Double>("pnl"));
         
         ObservableList<Pnl> pnlValues =FXCollections.observableArrayList();
-        for (Pnl pnlValue : list) {
+        pnlList.forEach((pnlValue) -> {
             pnlValues.add(pnlValue);
-        }
+        });
         PNLtableView.setItems(pnlValues);
 //
     }
@@ -484,7 +484,6 @@ public class MainController implements Initializable {
         
     }
     private void showDataOfSelectedCoin(){
-//        System.out.println("%%%%% selectedCoin == "+selectedCoin );
         List<Double> data = caller.getDataOfSelectedCoin(selectedCoin.getName());
         currentPriceofCoin = data.get(0);
         
@@ -686,15 +685,13 @@ double tickUnit = getTickUnits();
                             BTTvalidateLabel.setText("Transaction Occurs Successfully");
                             BTTvalidateLabel.setStyle("-fx-text-fill: #3b3bff");
 
-                        }
-                        else{
+                        }else{
                             BTTCorrectAmountLabel.setText("Please Enter Correct Amount");
                             ColorAdjust adj = new ColorAdjust(0, -0.9, -0.5, 0);
                             GaussianBlur blur = new GaussianBlur(7); 
                             adj.setInput(blur);
                             BTTrecipt.setEffect(adj);
-                        }
-                        
+                        } 
                     }
                     else if (BTTdepositTransType.isSelected()){
                         if(amount <= wallet.getAsset(0).getQuantity()){
@@ -712,16 +709,13 @@ double tickUnit = getTickUnits();
                         }
                         
                     }
-                    
                 }else{
                     BTTmatchVerifyPasswordLabel.setText("Password does not match");
                 }
-            }
-            else{
+            }else{
                 BTTmatchAccNumLabel.setText("Account no. does not match");
             }            
-        }
-        else{
+        }else{
             BTTvalidateLabel.setText("Please Enter All Informations");
         }
     }
@@ -748,13 +742,11 @@ double tickUnit = getTickUnits();
      }
     @FXML
     private void SPTselectBuyBtn(ActionEvent event) {
-//        SPTselectBuyBtnId.setStyle("-fx-background-color:  #064718; -fx-text-fill:#15cd43");
-//        SPTselectSellBtnId.setStyle("-fx-background-color:  #4f4a4f; -fx-text-fill:white");
+
         STTvalidateLabel.setText("");STTsellCoinBtnId.setVisible(false);STTsellSlider.setVisible(false);STTbuyCoinBtnId.setVisible(true);
         STTbuySlider.setVisible(true);STTamountLabel.setText("0");STTtotalLabel.setText("0");STTbuySlider.setValue(0);STTbuySlider.setMin(0);
         
         if(wallet.haveAsset("dollar")) {
-            System.out.println("@@@wallet = "+wallet);
             STTbuySlider.setMax(wallet.getAsset(currencies.getCurrency(0).getId()).getQuantity());
         }
         else {
@@ -765,9 +757,6 @@ double tickUnit = getTickUnits();
             
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) { 
-           
-//            String totalValue =  new BigDecimal(  ).toString();
-//            String amountValue =  new BigDecimal( ).toString();
             
             STTtotalLabel.setText( String.format( "%.3f", STTbuySlider.getValue() ) );
             STTamountLabel.setText( String.format( "%.3f", STTbuySlider.getValue()/currentPriceofCoin )  );
@@ -782,8 +771,6 @@ double tickUnit = getTickUnits();
          STTamountLabel.setText("0");STTtotalLabel.setText("0");STTsellSlider.setValue(0);STTsellSlider.setMin(0);
          
          if(wallet.haveAsset(apiCoinComboBox.getValue().toString())) {
-             System.out.println("***selectedCoin = "+ selectedCoin);
-             System.out.println("***selectedCoin.getId() = " + selectedCoin.getId());
              
              STTsellSlider.setMax( wallet.getAsset( selectedCoin.getId()).getQuantity() );
          }
@@ -794,8 +781,6 @@ double tickUnit = getTickUnits();
             
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                String totalValue =  new BigDecimal(  ).toString();
-//                String amountValue =  new BigDecimal( ).toString();
             
                 STTamountLabel.setText( String.format( "%.3f" , STTsellSlider.getValue() ) );
                 STTtotalLabel.setText( String.format( "%.3f" , currentPriceofCoin * STTsellSlider.getValue() ) );
@@ -908,7 +893,6 @@ double tickUnit = getTickUnits();
         P2PSamountLabel.setText("0");P2PSamountSlider.setValue(0);P2PSamountSlider.setMin(0);
         
         if(wallet.haveAsset(apiCoinComboBox.getValue().toString())) {
-//            STTsellSlider.setMax( wallet.getAsset( selectedCoin.getId()).getQuantity() );
              P2PSamountSlider.setMax( wallet.getAsset( selectedCoin.getId()).getQuantity() );
          }
          else {
