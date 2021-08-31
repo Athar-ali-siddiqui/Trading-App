@@ -32,7 +32,7 @@ public class WalletDBConnector extends DBConnector{
             
             while(rs.next()){
                 Asset a = new Asset(rs.getInt("id") , rs.getString("name"),rs.getDouble("qtn"));
-                wallet.addAsset(a);
+                wallet.add(a);
 //                System.out.println(rs.getInt("id") +" "+ rs.getString("name") +" "+rs.getDouble("qtn"));
             }
         } catch (SQLException ex) {
