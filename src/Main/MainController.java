@@ -213,7 +213,7 @@ public class MainController implements Initializable {
         if(!notsList.getList().isEmpty()){
             newNotificationLabel.setVisible(true);
             for(Notification n : notsList.getList()){
-                items.add(n.getNotsId()+"- User "+n.getUsername() +" buy your order click to see details");
+                items.add(n.getNotsId()+"- User "+n.getUsername() +" bought your order (click to see details)");
             }
             notificationListView.setItems(items);
         }
@@ -244,8 +244,8 @@ public class MainController implements Initializable {
             notificationDetailUsername.setText( n.getUsername() );
             notificationDetailGivenCurrencyAmount.setText( Double.toString(n.getGivenCurrencyAmount()) );
             notificationDetailTakenCurrencyAmount.setText( Double.toString(n.getTakenCurrencyAmount()) );
-            notificationDetailTakenCurrencySymbol.setText( n.getTakenCurrencySymbol() );
-            notificationDetailGivenCurrencySymbol.setText( n.getGivenCurrencySymbol() );
+            notificationDetailTakenCurrencySymbol.setText( n.getGivenCurrencySymbol() );
+            notificationDetailGivenCurrencySymbol.setText( n.getTakenCurrencySymbol() );
             notificationDetailTakenCurrencySymbol1.setText( n.getTakenCurrencySymbol() );
             notificationDetailGivenCurrencySymbol1.setText( n.getGivenCurrencySymbol() );
 
@@ -754,7 +754,8 @@ double tickUnit = getTickUnits();
         STTbuySlider.setVisible(true);STTamountLabel.setText("0");STTtotalLabel.setText("0");STTbuySlider.setValue(0);STTbuySlider.setMin(0);
         
         if(wallet.haveAsset("dollar")) {
-            STTbuySlider.setMax(wallet.getAsset(0).getQuantity());
+            System.out.println("@@@wallet = "+wallet);
+            STTbuySlider.setMax(wallet.getAsset(currencies.getCurrency(0).getId()).getQuantity());
         }
         else {
             STTbuySlider.setMax(0);
@@ -781,7 +782,10 @@ double tickUnit = getTickUnits();
          STTamountLabel.setText("0");STTtotalLabel.setText("0");STTsellSlider.setValue(0);STTsellSlider.setMin(0);
          
          if(wallet.haveAsset(apiCoinComboBox.getValue().toString())) {
-             STTsellSlider.setMax( wallet.getAsset( selectedCoin.getId() - 1 ).getQuantity() );
+             System.out.println("***selectedCoin = "+ selectedCoin);
+             System.out.println("***selectedCoin.getId() = " + selectedCoin.getId());
+             
+             STTsellSlider.setMax( wallet.getAsset( selectedCoin.getId()).getQuantity() );
          }
          else {
              STTsellSlider.setMax(0);
@@ -899,11 +903,13 @@ double tickUnit = getTickUnits();
         P2PbuyOrderTab.setVisible(false);
         P2PsellOrderTab.setVisible(true);
         P2PtradeHistoryTab.setVisible(false);
-
+        P2PSvalidateLabel.setText("");
+        P2PSpriceTextField.setText("");
         P2PSamountLabel.setText("0");P2PSamountSlider.setValue(0);P2PSamountSlider.setMin(0);
         
         if(wallet.haveAsset(apiCoinComboBox.getValue().toString())) {
-             P2PSamountSlider.setMax( wallet.getAsset( selectedCoin.getId() - 1 ).getQuantity() );
+//            STTsellSlider.setMax( wallet.getAsset( selectedCoin.getId()).getQuantity() );
+             P2PSamountSlider.setMax( wallet.getAsset( selectedCoin.getId()).getQuantity() );
          }
          else {
              P2PSamountSlider.setMax(0);
@@ -1021,7 +1027,6 @@ double tickUnit = getTickUnits();
         
         P2PBuyOrder.setVisible(false);
         P2PtableTab.setEffect(adj);
-        showP2PBuyOrder();
         
     }
 
@@ -1057,6 +1062,13 @@ double tickUnit = getTickUnits();
 
             notsdbc.addNotification( o.getUserId(), pnlId);
             dataRefresh();
+            ColorAdjust adj = new ColorAdjust(0, 0, 0, 0);
+            GaussianBlur blur = new GaussianBlur(0); 
+            adj.setInput(blur);
+
+            P2PBuyOrder.setVisible(false);
+            P2PtableTab.setEffect(adj);
+            showP2PBuyOrder();
             
         }
     }
