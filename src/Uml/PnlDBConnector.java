@@ -6,7 +6,10 @@
 package Uml;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,19 +27,27 @@ public class PnlDBConnector extends DBConnector{
     public PnlList fetchLast7DaysPnl(){
         PnlList list = new PnlList();
 
-        String queryStr="select date,SUM(pnl) as pnl from profitnloss pnl inner join p2p_trade p on pnl.transId = p.transId where p.sellerId = "+this.userId+" group by date having date =  ";
-        ArrayList<String> dates = new ArrayList<>();
-        Date date = new Date();
-        String monthYearStr = "-"+(date.getMonth()+1)+"-"+(date.getYear()+1900);
-        for (int i = date.getDate()-6; i < date.getDate() ; i++) {
-            dates.add(i+monthYearStr);
-            queryStr +=("'"+i+monthYearStr+"' or date = " );
+        String queryStr="select date,SUM(pnl) as pnl from profitnloss pnl inner join p2p_trade p on pnl.transId = p.transId where p.sellerId = "+this.userId+" group by date having";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        String[] dates = new String[7];
+        dates[0] = sdf.format(date);
+
+        for(int i = 1; i < 7; i++){
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+            date = cal.getTime();
+            dates[i] = sdf.format(date);
         }
-        queryStr +=("'"+date.getDate()+monthYearStr+"' Order by date asc" );
-         dates.add(date.getDate()+monthYearStr );
-//        System.out.println(queryStr);
-        System.out.println("dates == "+dates);
-//        Pnl[] pnlList = new Pnl[7];
+
+        for(int i = 0 ; i < dates.length -1 ; i++){
+            String x = dates[i];
+            queryStr +=(" date = '" + x + "' or"  );
+        }
+        queryStr +=(" date =  '" + dates[dates.length - 1] + "' Order by date asc"  );
+
+        System.out.println(queryStr);
+        System.out.println("dates == "+Arrays.toString(dates));
         int i = 0;
         try {
             st = con.createStatement();
@@ -44,51 +55,24 @@ public class PnlDBConnector extends DBConnector{
             while( rs.next() ){
 
                     while(i<7){
-                        if(dates.get(i).equals(rs.getString("date"))){
+                        if(dates[i].equals(rs.getString("date"))){
                             list.add( new Pnl( rs.getString("date") ,Double.parseDouble(String.format( "%.3f",rs.getDouble("pnl") ) ) ) );
                             i++;
                             break;
                         }else{
-                            list.add( new Pnl( dates.get(i) ) );
+                            list.add( new Pnl( dates[i] ) );
                             i++;
-                        }
-                        
-                    }
-                    
-                        
-                    
-                    
-//                }
-//                else{
-//                    list.add( new Pnl(dates.get(i) ) );
-//                }
-                
-
+                        }     
+                    }   
             }
             System.out.println("i == "+i);
             for (int j = i; j < 7; j++) {
-                list.add( new Pnl( dates.get(j) ) );
+                list.add( new Pnl( dates[j] ) );
             }
         } catch (SQLException ex) {
             Logger.getLogger(PnlDBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        System.out.println("list === "+list);
-        
-//        int j = 0;
-//        for (int i = 0; i < dates.size(); i++) {
-//            System.out.println("i = "+ i+" j = "+j +"  list= "+list);
-//            String date1 = dates.get(i);
-//            if(pnlList[i] == null){
-//                
-//            }
-//            if(!date1.equals( list.get(j).getDate() )){
-//                list.add(j, new Pnl(date1));
-//                
-//            }else{
-//                
-//            }
-//            j++;
-//        }
+
         System.out.println("list === "+list);
         return list;
     }
