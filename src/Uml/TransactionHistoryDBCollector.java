@@ -79,7 +79,7 @@ public class TransactionHistoryDBCollector extends DBConnector {
             
             while(rs.next()){
 //(takenCurrencyId, takenCurrencyAmount, takenCurrencyName, givenCurrencyId, givenCurrencyAmount, givenCurrencyName, date, tradeType)
-                transHist.addTransaction(new Transaction(rs.getInt("takenCurrencyId"),rs.getDouble("takenCurrencyAmount"),rs.getString("takenCurrencySymbol"),rs.getInt("givenCurrencyId"),rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"),rs.getString("date"),"spot" ));
+                transHist.add(new Transaction(rs.getInt("takenCurrencyId"),rs.getDouble("takenCurrencyAmount"),rs.getString("takenCurrencySymbol"),rs.getInt("givenCurrencyId"),rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"),rs.getString("date"),"spot" ));
 //                System.out.println(rs.getInt("takenCurrencyId")+" "+rs.getDouble("takenCurrencyAmount")+" "+rs.getInt("givenCurrencyId")+" "+rs.getDouble("givenCurrencyAmount")+" "+rs.getDate("date")+" "+"spot" );
             }
             return transHist;
@@ -130,10 +130,10 @@ public class TransactionHistoryDBCollector extends DBConnector {
             rs = st.executeQuery(queryStr);
             while(rs.next()){
                 if(rs.getInt("sellerId") == this.userId){
-                    transHist.addTransaction(new Transaction(rs.getInt("givenCurrencyId"), rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"), rs.getInt("takenCurrencyId"), rs.getDouble("takenCurrencyAmount"),rs.getString("takenCurrencySymbol"),rs.getString("date") ,rs.getString("buyerName") ) );
+                    transHist.add(new Transaction(rs.getInt("givenCurrencyId"), rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"), rs.getInt("takenCurrencyId"), rs.getDouble("takenCurrencyAmount"),rs.getString("takenCurrencySymbol"),rs.getString("date") ,rs.getString("buyerName") ) );
                 }
                 else if (rs.getInt("buyerId") == this.userId ){
-                     transHist.addTransaction(new Transaction( rs.getInt("takenCurrencyId"), rs.getDouble("takenCurrencyAmount"),rs.getString("takenCurrencySymbol") ,rs.getInt("givenCurrencyId"), rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"),rs.getString("date"),rs.getString("sellerName") ) );
+                     transHist.add(new Transaction( rs.getInt("takenCurrencyId"), rs.getDouble("takenCurrencyAmount"),rs.getString("takenCurrencySymbol") ,rs.getInt("givenCurrencyId"), rs.getDouble("givenCurrencyAmount"),rs.getString("givenCurrencySymbol"),rs.getString("date"),rs.getString("sellerName") ) );
                 }
             }
         } catch (SQLException ex) {

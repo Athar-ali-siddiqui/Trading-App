@@ -732,7 +732,7 @@ double tickUnit = getTickUnits();
          
          ObservableList<Transaction> transactionHistory =FXCollections.observableArrayList();
          
-         ArrayList<Transaction> trans = spotTransHist.getTransHistroy();
+         ArrayList<Transaction> trans = spotTransHist;
          Collections.reverse(trans);
 
          for(Transaction t : trans){
@@ -868,7 +868,7 @@ double tickUnit = getTickUnits();
          
          ObservableList<Transaction> transactionHistory =FXCollections.observableArrayList();
          
-         ArrayList<Transaction> trans = p2pTransHist.getTransHistroy();
+         ArrayList<Transaction> trans = p2pTransHist;
          Collections.reverse(trans);
 
          for(Transaction t : trans){
