@@ -5,6 +5,13 @@
  */
 package Main;
 
+import DBClasses.TransactionHistoryDBConnector;
+import DBClasses.WalletDBConnector;
+import DBClasses.BankDBConnector;
+import DBClasses.PnlDBConnector;
+import DBClasses.CurrencyDBConnector;
+import DBClasses.NotificationDBConnector;
+import DBClasses.P2POrderDBConnetor;
 import Uml.*;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -141,7 +148,7 @@ public class MainController implements Initializable {
     private BankDBConnector bankDBC;private WalletDBConnector walletdbc;
     private Wallet wallet;
     private TransactionHistory spotTransHist;
-    private TransactionHistoryDBCollector transdbc;
+    private TransactionHistoryDBConnector transdbc;
     private CurrencyList currencies;
     private P2POrderDBConnetor p2porderdbc;
     private P2POrderList p2pSellOrder;
@@ -172,7 +179,7 @@ public class MainController implements Initializable {
 //        System.out.println("id == "+this.user.getId()+" user name == "+ user.getName() + " password == "+ this.user.getPassword());
         walletdbc = new WalletDBConnector(id);
 
-        transdbc = new TransactionHistoryDBCollector(id); 
+        transdbc = new TransactionHistoryDBConnector(id); 
         p2porderdbc = new P2POrderDBConnetor(id);
         notsdbc = new NotificationDBConnector(id);
         pnldbc = new PnlDBConnector(id);

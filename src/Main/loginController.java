@@ -6,7 +6,7 @@
 package Main;
 
 import Uml.User;
-import Uml.UserDBConnector;
+import DBClasses.UserDBConnector;
 import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;

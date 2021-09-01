@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Uml;
+package DBClasses;
 
+import Uml.Transaction;
+import Uml.TransactionHistory;
 import java.util.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -14,11 +16,11 @@ import java.util.logging.Logger;
  *
  * @author 786 Computers
  */
-public class TransactionHistoryDBCollector extends DBConnector {
+public class TransactionHistoryDBConnector extends DBConnector {
 
     private int userId;
 
-    public TransactionHistoryDBCollector(int userId) {
+    public TransactionHistoryDBConnector(int userId) {
         this.userId = userId;
     }
     public int getTransactionId(Transaction trans){
@@ -37,7 +39,7 @@ public class TransactionHistoryDBCollector extends DBConnector {
                  return rs.getInt("transId");
              }
         } catch (SQLException ex) {
-            Logger.getLogger(TransactionHistoryDBCollector.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransactionHistoryDBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -2389287;
     }
@@ -62,7 +64,7 @@ public class TransactionHistoryDBCollector extends DBConnector {
             queryStr = " insert into spot_trade (transId,userId) values (" + getTransactionId(trans) + "," + this.userId + ")";
             st.executeUpdate(queryStr);
         } catch (SQLException ex) {
-            Logger.getLogger(TransactionHistoryDBCollector.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransactionHistoryDBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -84,7 +86,7 @@ public class TransactionHistoryDBCollector extends DBConnector {
             }
             return transHist;
         } catch (SQLException ex) {
-            Logger.getLogger(TransactionHistoryDBCollector.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransactionHistoryDBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
         return transHist;
 
@@ -112,7 +114,7 @@ public class TransactionHistoryDBCollector extends DBConnector {
             st.executeUpdate(queryStr);
 //            queryStr = " insert into notification (transId,userId,netIncome) values ("+transId +"," +trans.getTrader() +"," +  + ")";
         } catch (SQLException ex) {
-            Logger.getLogger(TransactionHistoryDBCollector.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransactionHistoryDBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public TransactionHistory fetcP2PTransactionHistory(){
@@ -137,7 +139,7 @@ public class TransactionHistoryDBCollector extends DBConnector {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(TransactionHistoryDBCollector.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransactionHistoryDBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
         return transHist;
@@ -155,7 +157,7 @@ public class TransactionHistoryDBCollector extends DBConnector {
             System.out.println("");
             
         } catch (SQLException ex) {
-            Logger.getLogger(TransactionHistoryDBCollector.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TransactionHistoryDBConnector.class.getName()).log(Level.SEVERE, null, ex);
             
         }return count;
     }

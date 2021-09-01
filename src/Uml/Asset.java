@@ -15,7 +15,7 @@ public class Asset {
 
     
     private double quantity=0;
-    Asset(int currencyId,String currencyName, double quantity){
+    public Asset(int currencyId,String currencyName, double quantity){
         this.currencyId = currencyId;
         this.currencyName =  currencyName.toUpperCase();
         this.quantity = quantity;
