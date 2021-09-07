@@ -865,13 +865,13 @@
                     <xAxis>
                       <CategoryAxis tickLabelFill="WHITE">
                            <tickLabelFont>
-                              <Font size="10.0" />
+                              <Font size="12.0" />
                            </tickLabelFont></CategoryAxis>
                     </xAxis>
                     <yAxis>
                       <NumberAxis fx:id="yAxis" side="RIGHT" tickLabelFill="WHITE">
                            <tickLabelFont>
-                              <Font size="10.0" />
+                              <Font size="11.0" />
                            </tickLabelFont></NumberAxis>
                     </yAxis>
                   </LineChart>

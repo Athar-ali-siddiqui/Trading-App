@@ -5,13 +5,7 @@
  */
 package Main;
 
-import DBClasses.TransactionHistoryDBConnector;
-import DBClasses.WalletDBConnector;
-import DBClasses.BankDBConnector;
-import DBClasses.PnlDBConnector;
-import DBClasses.CurrencyDBConnector;
-import DBClasses.NotificationDBConnector;
-import DBClasses.P2POrderDBConnetor;
+import DBClasses.*;
 import Uml.*;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -40,7 +34,6 @@ import javafx.scene.effect.*;
 import javafx.scene.input.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-//import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * FXML Controller class

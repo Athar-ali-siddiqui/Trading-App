@@ -187,8 +187,8 @@ public class ApiCaller{
             url = new URL(str);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setConnectTimeout(7000);
-            connection.setReadTimeout(7000);
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
             
             int status = connection.getResponseCode();
             System.out.println("status: "+status);
