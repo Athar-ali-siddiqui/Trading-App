@@ -10,6 +10,7 @@ import Uml.PnlList;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,29 +48,29 @@ public class PnlDBConnector extends DBConnector{
             queryStr +=(" date = '" + x + "' or"  );
         }
         queryStr +=(" date =  '" + dates[dates.length - 1] + "' Order by date asc"  );
-
+        
         System.out.println(queryStr);
         System.out.println("dates == "+Arrays.toString(dates));
-        int i = 0;
+
+        HashMap<String, Double> items = new HashMap<String, Double>();
         try {
             st = con.createStatement();
             rs = st.executeQuery(queryStr);
             while( rs.next() ){
+                items.put( rs.getString("date") ,Double.parseDouble(String.format( "%.3f",rs.getDouble("pnl") ) ));
 
-                    while(i<7){
-                        if(dates[i].equals(rs.getString("date"))){
-                            list.add( new Pnl( rs.getString("date") ,Double.parseDouble(String.format( "%.3f",rs.getDouble("pnl") ) ) ) );
-                            i++;
-                            break;
-                        }else{
-                            list.add( new Pnl( dates[i] ) );
-                            i++;
-                        }     
-                    }   
             }
-            System.out.println("i == "+i);
-            for (int j = i; j < 7; j++) {
-                list.add( new Pnl( dates[j] ) );
+            
+            for (int i = 0; i < 7; i++) {
+                if( items.get( dates[i] ) == null ){
+                    
+                    list.add(new Pnl( dates[i] ) );
+                }
+                else {
+                    
+                     list.add( new Pnl( dates[i] , items.get( dates[i] ) ) );
+                }
+               
             }
         } catch (SQLException ex) {
             Logger.getLogger(PnlDBConnector.class.getName()).log(Level.SEVERE, null, ex);
